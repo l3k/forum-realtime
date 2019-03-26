@@ -224,9 +224,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titles', 'replies', 'open']
+    props: ['titles', 'replies', 'open'],
+    data: function data() {
+        return {
+            threads_response: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        window.axios.get('/threads').then(function (response) {
+            _this.threads_response = response.data;
+        });
+    }
 });
 
 /***/ }),
@@ -253,21 +266,25 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("1")]),
-            _vm._v(" "),
-            _c("td", [
-              _vm._v("Tópico legal vamos puxar no Laravel em RealTime")
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c("a", { attrs: { href: "/threads/1" } }, [
-                _vm._v(_vm._s(_vm.open))
+        _c(
+          "tbody",
+          _vm._l(_vm.threads_response.data, function(thread) {
+            return _c("tr", { key: thread.id }, [
+              _c("td", [_vm._v(_vm._s(thread.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(thread.title))]),
+              _vm._v(" "),
+              _c("td", [_vm._v("0")]),
+              _vm._v(" "),
+              _c("td", [
+                _c("a", { attrs: { href: "/threads/" + thread.id } }, [
+                  _vm._v(_vm._s(_vm.open))
+                ])
               ])
             ])
-          ])
-        ])
+          }),
+          0
+        )
       ])
     ])
   ])

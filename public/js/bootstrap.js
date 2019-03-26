@@ -40651,6 +40651,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
 $(document).ready(function () {
     $('.parallax').parallax();
+    $('.dropdown-trigger').dropdown();
 });
 
 /***/ }),

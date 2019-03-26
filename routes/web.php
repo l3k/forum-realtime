@@ -19,3 +19,16 @@ Route::get('/threads/{id}', function ($id) {
     $result = \App\Thread::findOrFail($id);
     return view('threads.view', compact('result'));
 });
+
+Route::get('/locale/{locale}', function($locale) {
+    session(['locale' => $locale]);
+    return back();
+});
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('/threads', 'ThreadController@index');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
